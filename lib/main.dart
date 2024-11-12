@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tekieemob/menu.dart';
+import 'package:tekieemob/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());

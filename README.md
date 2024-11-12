@@ -219,3 +219,60 @@ samples, guidance on mobile development, and a full API reference.
     8. Melakukan flutter analyze untuk memastikan tidak ada isu-isu pada kode yang dapat mengganggu performa atau fungsionalitas aplikasi.
 
 
+## TUGAS 8
+
+1. Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?
+
+    Di Flutter, kata kunci const digunakan untuk membuat objek yang nilainya tidak bisa diubah (immutable) dan hanya dibuat satu kali di memori. Ketika kita menandai suatu objek dengan const, Flutter akan menghemat memori dan meningkatkan kinerja aplikasi karena objek tersebut tidak dibuat ulang setiap kali dipanggil, melainkan hanya menggunakan satu instance yang sama. Ini sangat berguna jika kita memiliki widget atau elemen UI yang tidak akan berubah, seperti teks atau ikon statis. Dengan const, kompilator Dart juga dapat melakukan optimalisasi, sehingga aplikasi berjalan lebih cepat.
+    
+    Penggunaan const sebaiknya diterapkan pada objek yang sifatnya tetap, misalnya teks yang tidak berubah atau padding yang konsisten di berbagai bagian aplikasi. Ini membantu menjaga aplikasi tetap efisien dan rapi. Namun, jika objek tersebut mengandalkan data dinamis yang mungkin berubah selama aplikasi berjalan, seperti data yang bergantung pada status (state) atau variabel yang akan diperbarui, kita tidak perlu menggunakan const. Contohnya, jika kita menampilkan Text yang isinya bergantung pada nama pengguna yang bisa berubah, kita cukup menggunakan Text tanpa const. Dengan memahami kapan menggunakan const, kita bisa membuat aplikasi yang lebih ringan dan responsif. 
+
+2. Jelaskan dan bandingkan penggunaan Column dan Row pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!
+
+    Di Flutter, Column dan Row adalah widget dasar yang digunakan untuk menyusun elemen UI secara vertikal dan horizontal. Column digunakan untuk menata widget atau elemen secara vertikal, dari atas ke bawah, sementara Row digunakan untuk menata elemen secara horizontal, dari kiri ke kanan. Jadi, jika kita ingin menempatkan elemen-elemen UI dalam satu baris (sejajar), kita menggunakan Row. Sebaliknya, jika kita ingin elemen-elemen tersebut tersusun bertumpuk (di bawah satu sama lain), kita menggunakan Column.
+
+    Misalnya, jika kita ingin menampilkan tiga teks secara vertikal (bertumpuk), kita bisa menggunakan Column seperti ini:
+
+    ```
+    Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+            Text('Name: $_name'),
+            Text('Description: $_description'),
+            Text('Amount: $_amount'),
+        ],
+    ),
+    ```
+
+    Hasilnya, ketiga teks tersebut akan muncul satu di bawah lainnya.
+
+    Sementara itu, jika kita ingin menampilkan tiga teks secara horizontal (bersebelahan), kita menggunakan Row seperti ini:
+    ```
+    Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+            InfoCard(title: 'NPM', content: npm),
+            InfoCard(title: 'Name', content: name),
+            InfoCard(title: 'Class', content: className),
+        ],
+    ),
+    ```
+    Dengan Row, ketiga InfoCard akan tampil sejajar dari kiri ke kanan. Perlu diingat, Column dan Row juga bisa dikombinasikan untuk membuat layout yang lebih kompleks. Misalnya, kita bisa meletakkan Row di dalam Column atau sebaliknya, sehingga memungkinkan untuk membuat susunan elemen yang lebih bervariasi dan fleksibel.
+
+3. Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!
+
+    Pada halaman form yang saya buat dalam tugas ini, saya menggunakan tiga elemen input utama: TextFormField untuk Name, Description, dan Amount. TextFormField ini memungkinkan pengguna memasukkan teks atau angka yang nantinya bisa divalidasi sesuai ketentuan, seperti memastikan nama dan deskripsi memiliki jumlah karakter tertentu dan hanya berisi karakter yang valid, serta memastikan Amount berupa angka. Di samping itu, ada tombol ElevatedButton yang berfungsi sebagai tombol Save untuk menyimpan data yang diisi pada form.
+
+    Flutter sebenarnya menyediakan banyak elemen input lain yang bisa digunakan sesuai kebutuhan. Misalnya, ada DropdownButton untuk menampilkan pilihan dropdown, Checkbox untuk memilih opsi ya atau tidak, Radio untuk memilih satu pilihan dari beberapa opsi, Slider untuk mengatur nilai dengan cara menggeser, dan Switch untuk mengaktifkan atau menonaktifkan sesuatu. Meskipun elemen-elemen tersebut sangat berguna, saya tidak menggunakannya dalam tugas ini karena form yang saya buat hanya membutuhkan input teks dan angka sederhana. Namun, elemen-elemen input lainnya akan sangat membantu untuk form yang lebih kompleks atau membutuhkan pilihan beragam.
+
+4. Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?
+
+    Pada aplikasi Flutter, pengaturan tema (Theme) dilakukan agar tampilan aplikasi menjadi konsisten dan mudah diatur. Dengan menggunakan tema, kita bisa menentukan warna-warna utama (seperti warna utama dan warna aksen), font, serta gaya elemen UI lainnya yang diterapkan di seluruh aplikasi. Dalam kode saya, tema diatur melalui ThemeData pada properti theme di dalam MaterialApp. Di sini, saya mengatur colorScheme dengan menggunakan ColorScheme.fromSwatch, yang memungkinkan saya untuk memilih primarySwatch dengan warna coklat (Colors.brown) sebagai warna utama, dan warna aksen menggunakan Colors.brown[600]. Dengan cara ini, semua bagian aplikasi yang mengikuti tema utama akan otomatis menyesuaikan ke warna coklat yang konsisten tanpa perlu menentukannya satu per satu.
+
+    Menggunakan tema seperti ini sangat membantu agar aplikasi tetap seragam dan mudah untuk diperbarui jika suatu saat kita ingin mengganti gaya atau warna. Sebagai contoh, jika saya ingin mengganti warna tema utama, saya cukup mengganti primarySwatch, dan seluruh aplikasi akan mengikuti perubahan tersebut. Pada aplikasi yang saya buat, saya mengimplementasikan tema dengan cara ini agar aplikasi memiliki tampilan yang seragam dan terlihat profesional.
+
+5. Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
+
+    Dalam aplikasi Flutter yang memiliki banyak halaman, navigasi ditangani menggunakan widget Navigator. Navigator berfungsi sebagai pengelola tumpukan halaman (stack), sehingga kita bisa menambah halaman baru di atas halaman saat ini atau menggantinya. Pada program saya, saya menggunakan Navigator.push dan Navigator.pushReplacement. Ketika Navigator.push digunakan, halaman baru akan ditambahkan di atas halaman saat ini, sehingga pengguna bisa kembali ke halaman sebelumnya dengan tombol "Back". Misalnya, ketika saya menekan item menu "Tambah Produk," Navigator.push membuka halaman ProductEntryFormPage di atas halaman sebelumnya.
+
+    Sementara itu, Navigator.pushReplacement digunakan untuk mengganti halaman saat ini dengan halaman baru, tanpa menyimpan halaman lama di tumpukan. Contohnya, saat saya memilih "Halaman Utama," Navigator.pushReplacement mengganti halaman dengan MyHomePage, sehingga pengguna tidak bisa kembali ke halaman sebelumnya menggunakan tombol "Back." Selain itu, saya juga menggunakan Navigator.pop untuk menutup dialog atau halaman saat ini dan kembali ke halaman sebelumnya. Dengan cara ini, navigasi antarhalaman dalam aplikasi bisa diatur dengan rapi dan mudah, membuat aplikasi lebih nyaman digunakan.
